@@ -13,8 +13,10 @@ You'll need these in your project so they can be references.
 ### Mesh Simplifier
 This is essentially just runtime mesh decimation. That's it. Specify a mesh, a quality, and it'll do its thing.
 
-## Lighting Controls
+### Lighting Controls
 This component will automatically create animations for every mesh on your avatar that adjust various lighting aspects and menu sliders to go along with it. It's mainly meant for poiyomi, but has limited support for lilToon and UCTS.
+
+Your poiyomi materials will be automatically unlocked if a parameter is being animated on them.
 
 Currently has options for 
 - Lighting Intensity

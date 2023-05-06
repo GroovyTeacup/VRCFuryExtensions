@@ -1,0 +1,20 @@
+{
+    "name": "VRCFuryAddons",
+    "references": [
+        "VRCFury-Editor",
+        "VRCFury",
+        "Whinarn.UnityMeshSimplifier.Runtime",
+        "ThryAssemblyDefinition"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

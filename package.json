@@ -1,0 +1,12 @@
+{
+  "name": "com.teadev.vrcfuryextensions",
+  "version": "1.0.0",
+  "displayName": "VRCFury Extensions",
+  "description": "Random spaghetti code add-ons to vrcfury",
+  "documentationUrl": "https://github.com/GroovyTeacup/VRCFuryExtensions",
+  "unity": "2019.4",
+  "dependencies": {
+    "com.vrcfury.vrcfury": "0.0.0",
+	"com.whinarn.unitymeshsimplifier": "3.1.0"
+  }
+}

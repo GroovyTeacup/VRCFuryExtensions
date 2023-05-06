@@ -24,6 +24,7 @@ namespace VF.Feature
         public string GroupName { get; set; }
         public VFAFloat Parameter { get; set; }
         public string ParameterName { get; set; }
+        public float ParameterDefault { get; set; }
         public AnimationClip ClipStart;
         public AnimationClip ClipEnd;
         public string MenuLabel { get; set; }
@@ -35,7 +36,7 @@ namespace VF.Feature
 
         public void InitializeAnimations(ControllerManager fx)
         {
-            Parameter = fx.NewFloat(ParameterName, true, 0, true);
+            Parameter = fx.NewFloat(ParameterName, true, ParameterDefault, true);
             ClipStart = fx.NewClip(GroupName + "_Start");
             ClipEnd = fx.NewClip(GroupName + "_End");
 
@@ -60,10 +61,11 @@ namespace VF.Feature
             menu.NewMenuSlider("Lighting/" + MenuLabel, Parameter);
         }
 
-        public MaterialPropertyGroup(string groupName, string parameterName, string menuName = null)
+        public MaterialPropertyGroup(string groupName, string parameterName, float defaultParameterValue, string menuName = null)
         {
             GroupName = groupName;
             ParameterName = parameterName;
+            ParameterDefault = defaultParameterValue;
             MenuLabel = menuName ?? groupName;
             PropertyInfos = new List<MaterialPropertyInfo>();
         }
@@ -116,19 +118,27 @@ namespace VF.Feature
         {
             var fx = GetFx();
 
-            var lightingControlGroup = new MaterialPropertyGroup("Lighting Add", "lightAdd");
+            var lightingControlGroup = new MaterialPropertyGroup("Lighting Add", "lightAdd", 0);
             lightingControlGroup.AddPropertyInfo("_PPLightingAddition", 0, 1, true); // Poiyomi
             lightingControlGroup.AddPropertyInfo("Unlit_Intensity", 0, 4); // UCTS
             lightingControlGroup.AddPropertyInfo("_AsUnlit", 0, 1); // lilToon
             lightingControlGroup.InitializeAnimations(fx);
 
-            var greyscaleControlGroup = new MaterialPropertyGroup("Lighting Greyscale", "lightGreyscale");
+            var lightingMultControlGroup = new MaterialPropertyGroup("Lighting Multiplier", "lightMult", 1, "Lighting Mult");
+            lightingMultControlGroup.AddPropertyInfo("_PPLightingMultiplier", 0, 1, true); // Poiyomi
+            lightingMultControlGroup.InitializeAnimations(fx);
+
+            var greyscaleControlGroup = new MaterialPropertyGroup("Lighting Greyscale", "lightGreyscale", 0);
             greyscaleControlGroup.AddPropertyInfo("_LightingMonochromatic", 0, 1, true); // Poiyomi
             greyscaleControlGroup.AddPropertyInfo("_LightingAdditiveMonochromatic", 0, 1, true); // Poiyomi
             greyscaleControlGroup.AddPropertyInfo("_MonochromeLighting", 0, 1); // lilToon
             greyscaleControlGroup.InitializeAnimations(fx);
 
-            var propertyGroups = new List<MaterialPropertyGroup> { lightingControlGroup, greyscaleControlGroup };
+            var emissionStrengthControlGroup = new MaterialPropertyGroup("Emission Strength", "emissionStrength", 0.25f, "Emission Mult");
+            emissionStrengthControlGroup.AddPropertyInfo("_PPEmissionMultiplier", 0, 4, true); // Poiyomi
+            emissionStrengthControlGroup.InitializeAnimations(fx);
+
+            var propertyGroups = new List<MaterialPropertyGroup> { lightingControlGroup, greyscaleControlGroup, lightingMultControlGroup, emissionStrengthControlGroup };
 
             var skins = avatarObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
 

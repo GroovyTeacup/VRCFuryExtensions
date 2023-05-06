@@ -183,7 +183,7 @@ namespace VF.Feature
                 ShaderOptimizer.SetLockedForAllMaterials(new[] { mat }, 0, true, false, true);
             }
 
-            ShaderOptimizer.SetAnimatedTag(property, "1");
+            mat.SetOverrideTag(property.name + ShaderOptimizer.AnimatedTagSuffix, "1");
             VRCFuryEditorUtils.MarkDirty(mat);
 
             return true;

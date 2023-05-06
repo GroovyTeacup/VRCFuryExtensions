@@ -40,7 +40,7 @@ namespace VF.Feature
             ClipEnd = fx.NewClip(GroupName + "_End");
 
             BlendTree = fx.NewBlendTree(GroupName + "_BT");
-            BlendTree.blendParameter = ParameterName;
+            BlendTree.blendParameter = Parameter.Name();
             BlendTree.blendType = BlendTreeType.Simple1D;
             BlendTree.minThreshold = 0;
             BlendTree.maxThreshold = 1;
@@ -116,13 +116,13 @@ namespace VF.Feature
         {
             var fx = GetFx();
 
-            var lightingControlGroup = new MaterialPropertyGroup("Lighting Add", "_lightAdd");
+            var lightingControlGroup = new MaterialPropertyGroup("Lighting Add", "lightAdd");
             lightingControlGroup.AddPropertyInfo("_PPLightingAddition", 0, 1, true); // Poiyomi
             lightingControlGroup.AddPropertyInfo("Unlit_Intensity", 0, 4); // UCTS
             lightingControlGroup.AddPropertyInfo("_AsUnlit", 0, 1); // lilToon
             lightingControlGroup.InitializeAnimations(fx);
 
-            var greyscaleControlGroup = new MaterialPropertyGroup("Lighting Greyscale", "_lightGreyscale");
+            var greyscaleControlGroup = new MaterialPropertyGroup("Lighting Greyscale", "lightGreyscale");
             greyscaleControlGroup.AddPropertyInfo("_LightingMonochromatic", 0, 1, true); // Poiyomi
             greyscaleControlGroup.AddPropertyInfo("_LightingAdditiveMonochromatic", 0, 1, true); // Poiyomi
             greyscaleControlGroup.AddPropertyInfo("_MonochromeLighting", 0, 1); // lilToon
